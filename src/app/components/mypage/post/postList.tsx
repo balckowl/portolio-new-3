@@ -1,15 +1,7 @@
+import { Post as userPost } from "@prisma/client";
 import Post from "./post";
-import { postListType } from "@/types/mypage";
 
-const postList : postListType[] = [
-    {icon: "😃", title: "失敗しました。"},
-    {icon: "😃", title: "失敗しました。"},
-    {icon: "👶", title: "おぎゃ〜（号泣）"},
-    {icon: "😃", title: "失敗しました。"},
-    {icon: "⚠️", title: "失敗しました。"}
-]
-
-const PostList = () => {
+const PostList = ({ userPosts }: { userPosts: userPost[] }) => {
 
     return (
         <div className="py-[90px] lg:py-[140px]">
@@ -18,9 +10,9 @@ const PostList = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
                         {
-                            postList.map(
+                            userPosts.map(
                                 item => (
-                                <Post icon={item.icon} title={item.title} key={item.title}/>
+                                    <Post icon={item.icon} title={item.title} key={item.title} />
                                 )
                             )
                         }
