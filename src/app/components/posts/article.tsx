@@ -12,7 +12,7 @@ const Article = () => {
                     <div className="mb-[10px]">
                         <h2 className="text-[20px] sm:text-[25px] lg:text-[30px] font-bold">learning Next.js</h2>
                     </div>
-                    <div className="min-h-[400px] bg-white p-5 rounded-[5px] mb-[10px]">
+                    <div className="min-h-[400px] bg-white dark:bg-zinc-700 p-5 rounded-[5px] mb-[10px]">
                         <div className="border-[1px] border-[#eee] rounded-[5px] flex justify-between p-3 mb-[15px]">
                             <div className="flex-col sm:flex-row flex sm:items-center sm:gap-3">
                                 <div className="text-[13px]">2024/6/24</div>
@@ -25,7 +25,7 @@ const Article = () => {
                                 <div className="flex items-center gap-3">
                                     <Avatar>
                                         <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                                        <AvatarFallback>CN</AvatarFallback>
+                                        <AvatarFallback>icon</AvatarFallback>
                                     </Avatar>
                                     <p className="hidden sm:block">rocket_peng</p>
                                 </div>
@@ -46,7 +46,7 @@ const Article = () => {
 
                     <div className="flex justify-end items-center gap-3">
                         <Link href="/posts/2" target="_blank">
-                            <div className="bg-white py-2 px-2 flex items-center gap-3 cursor-pointer rounded-[5px]">
+                            <div className="bg-muted py-2 px-2 flex items-center gap-3 cursor-pointer rounded-[5px]">
                                 <CircleHelp width={20} height={20} />
                             </div>
                         </Link>

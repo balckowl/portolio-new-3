@@ -14,7 +14,7 @@ const Hero = async () => {
                         <Button>はじめる</Button>
                     </div>
                     <div className="w-4/5 sm:w-1/2 order-1 sm:order-2">
-                        <Image src="/images/home/hero2.png" width={500} height={500} alt="hero" />
+                        <Image src="/images/home/hero.png" width={500} height={500} alt="hero" />
                     </div>
                 </div>
             </div>

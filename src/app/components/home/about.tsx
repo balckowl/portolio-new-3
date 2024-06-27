@@ -11,7 +11,7 @@ const About = () => {
                         私たちは成功ではなく、誰もが経験する「失敗」に焦点を当て、それを皆で共有できるプラットフォームを作りました。
                     </p>
                     <div>
-                        <Image src="/images/home/about2.png" width={250} height={200} alt="about" className="mx-auto"/>
+                        <Image src="/images/home/about.png" width={250} height={200} alt="about" className="mx-auto"/>
                     </div>
                 </div>
             </div>

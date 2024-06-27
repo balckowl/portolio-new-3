@@ -2,7 +2,7 @@ import Editor from "@/app/components/posts/editor";
 
 const EditPage = () => {
     return (
-        <div className="bg-[#eee] min-h-screen">
+        <div className="bg-muted min-h-screen">
             <Editor />
         </div>
     )
