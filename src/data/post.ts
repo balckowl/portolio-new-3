@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma/db"
 
-export const getUserPosts = async(userId: string) => {
+export const getUserPosts = async (userId: string) => {
 
     const userPosts = await prisma.post.findMany({
         where: {
@@ -11,12 +11,15 @@ export const getUserPosts = async(userId: string) => {
     return userPosts
 }
 
-export const getUserPost = async(userId: string, postId: number) => {
-    
+export const getUserPost = async (userId: string, postId: number) => {
+
     const userPost = await prisma.post.findUnique({
-        where:{
+        where: {
             userId,
             postId
+        },
+        include: {
+            user : true
         }
     })
 
