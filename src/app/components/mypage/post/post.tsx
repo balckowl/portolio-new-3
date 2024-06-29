@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { postListType } from "@/types/mypage";
 
-const Post = ({icon, title} : postListType) => {
+const Post = ({ icon, title, postId }: { icon: string, title: string, postId: number }) => {
     return (
         <div className="col-span-1 border-[1px] rounded-[5px] bg-muted" >
-            <Link href={`/posts/`}>
+            <Link href={`/posts/${postId}`}>
                 <div className="text-center py-5">
                     <span className="text-[50px]">{icon}</span>
                 </div>
