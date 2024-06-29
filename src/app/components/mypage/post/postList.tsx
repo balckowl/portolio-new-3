@@ -12,7 +12,7 @@ const PostList = ({ userPosts }: { userPosts: userPost[] }) => {
                         {
                             userPosts.map(
                                 item => (
-                                    <Post icon={item.icon} title={item.title} key={item.title} />
+                                    <Post icon={item.icon} title={item.title} postId={item.postId} key={item.title} />
                                 )
                             )
                         }
