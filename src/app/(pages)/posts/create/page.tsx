@@ -1,11 +1,11 @@
 import Editor from "@/app/components/posts/editor";
 
-const EditPage = () => {
+const CreatePage = () => {
     return (
         <div className="bg-muted min-h-screen">
-            <Editor />
+            <Editor/>
         </div>
     )
 }
 
-export default EditPage;
+export default CreatePage;
