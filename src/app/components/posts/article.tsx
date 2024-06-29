@@ -1,21 +1,50 @@
+"use client"
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CircleHelp, RefreshCw } from "lucide-react";
 import Link from "next/link";
-import {format} from "date-fns";
+import { format } from "date-fns";
 import { Post, User } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
+import { useState } from "react";
+import { error } from "console";
 
-const Article = ({title, description, icon, createdAt, updatedAt, id, username, photoUrl} : Post & {id : string, username : string, photoUrl : string | null}) => {
+const Article = ({ title, description, icon, createdAt, updatedAt, id, username, photoUrl, postId }: Post & { id: string, username: string, photoUrl: string | null, postId: number }) => {
 
-    const createdAtFormatted =  format(createdAt, "yyyy/MM/dd");
+    const createdAtFormatted = format(createdAt, "yyyy/MM/dd");
     const updatedAtFormatted = format(updatedAt, "yyyy/MM/dd");
+
+    const router = useRouter();
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const deletePost = async () => {
+        try {
+            setIsLoading(true);
+
+            await fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
+                method: "DELETE",
+            })
+
+            setIsLoading(false);
+
+            router.push("/mypage");
+            router.refresh();
+        } catch (e) {
+            setIsLoading(false);
+            toast.error("削除に失敗しました")
+        }
+    }
 
     return (
         <div className="py-[100px] flex justify-center bg-muted min-h-[calc(100vh-80px-60px)]">
+            <Toaster />
             <Tabs className="w-[92%] sm:container flex justify-center" defaultValue="markdown">
                 <div className="w-full lg:w-[60%]">
-                    
+
                     <div className="mb-[10px] flex items-center gap-3">
                         <div className="text-[45px] lg:text-[60px]">😀</div>
                         <h2 className="text-[20px] sm:text-[25px] lg:text-[30px] font-bold">{title}</h2>
@@ -32,7 +61,7 @@ const Article = ({title, description, icon, createdAt, updatedAt, id, username, 
                             </div>
                             <Link href={`/mypage`}>
                                 <div className="flex items-center gap-3">
-                                   {photoUrl && <Avatar>
+                                    {photoUrl && <Avatar>
                                         <AvatarImage src={photoUrl} alt="@shadcn" />
                                         <AvatarFallback>icon</AvatarFallback>
                                     </Avatar>}
@@ -43,7 +72,7 @@ const Article = ({title, description, icon, createdAt, updatedAt, id, username, 
 
                         <div className="flex gap-2 justify-end mb-[15px]">
                             <Button>編集</Button>
-                            <Button>削除</Button>
+                            <Button onClick={deletePost} disabled={isLoading}>削除</Button>
                         </div>
 
                         <div>
