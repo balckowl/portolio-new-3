@@ -5,6 +5,9 @@ export const getUserPosts = async (userId: string) => {
     const userPosts = await prisma.post.findMany({
         where: {
             userId
+        },
+        orderBy: {
+            postId: "desc"
         }
     })
 
