@@ -42,7 +42,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
     }
 
     return (
-        <div className="py-[70px] flex items-center justify-center bg-muted min-h-[calc(100vh-80px-80px)]">
+        <div className="py-[70px] flex items-center justify-center bg-muted min-h-[calc(100vh-55px-55px)]">
             <Toaster />
             <Tabs className="w-[92%] sm:container flex justify-center" defaultValue="markdown">
                 <div className="w-full lg:w-[60%]">
