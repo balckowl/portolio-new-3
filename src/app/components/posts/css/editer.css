@@ -1,0 +1,47 @@
+.preview h1 {
+    font-size: 30px;
+    border-bottom: 1px solid #eee;
+    font-weight: 700;
+    margin-block: 30px;
+}
+
+.preview h2{
+    font-size: 25px;
+    border-bottom: 1px solid #eee;
+    font-weight: 700;
+    margin-block: 30px;
+}
+
+.preview h3{
+    font-size: 22px;
+    border-bottom: 1px solid #eee;
+    font-weight: 700;
+    margin-block: 30px;
+}
+
+.preview h4{
+    font-size: 18px;
+    border-bottom: 1px solid #eee;
+    font-weight: 700;
+    margin-block: 30px;
+}
+
+.preview p {
+    margin-bottom: 30px;
+    line-height: 1.7;
+}
+
+.preview ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    margin-bottom: 30px;
+}
+
+.preview a{
+    color: blue;
+    text-decoration: underline;
+}
+
+.preview pre {
+    margin-bottom: 30px;
+}

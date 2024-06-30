@@ -9,9 +9,14 @@ import {
 import { CircleHelp, Image, Settings2 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { ChangeEvent, useState } from "react"
 import { toast, Toaster } from "react-hot-toast";
 import Picker from '@emoji-mart/react';
+import ReactMarkdown from 'react-markdown'
+import "./css/editer.css"
+import { CodeBlock } from "./codeBlock"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import { storage } from "@/lib/firebase/client"
 
 const Editor = () => {
     const [title, setTitle] = useState<string>("");
@@ -63,6 +68,40 @@ const Editor = () => {
         }
     }
 
+    //画像を挿入する関数
+    const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+
+        if (!e.target.files) return;
+        const loading = toast.loading("アップロード中...");
+        try {
+            setIsLoading(true);
+
+            const file = e.target.files[0]
+
+            const storageRef = ref(storage, `images/${file?.name}`);
+
+            if (file) {
+                await uploadBytes(storageRef, file).then(() => {
+                    console.log('Uploaded a blob or file!');
+                })
+            }
+
+            const url = await getDownloadURL(storageRef)
+
+            const imageMarkdown = `![](${url})`
+
+            toast.dismiss(loading);
+            toast.success("アップロードできました。");
+            setDescription(description + imageMarkdown)
+            setIsLoading(false)
+        } catch (e) {
+            toast.dismiss(loading);
+            toast.error("アップロードできませんでした。");
+            setIsLoading(false)
+        }
+
+    }
+
     return (
         <div>
             <div className="w-[92%] sm:container mx-auto">
@@ -100,16 +139,24 @@ const Editor = () => {
                         <div className="mb-[10px]">
                             <TabsContent value="markdown">
                                 <div className="h-[400px] bg-white dark:bg-zinc-700 p-5 rounded-[5px] relative w-full">
-                                    <textarea name="" className="h-full w-full focus:outline-none resize-none bg-white dark:bg-zinc-700" value={description} onChange={(e) => { setDescription(e.target.value) }}></textarea>
-                                    <div onClick={() => document.getElementById('file-input')?.click()} className="bg-yellow-200 dark:text-zinc-700 w-12 h-12 flex items-center justify-center absolute bottom-[10px] right-[10px] rounded-full cursor-pointer">
+                                    <textarea name="" className="h-full w-full focus:outline-none resize-none bg-white dark:bg-zinc-700" value={description} onChange={(e) => { setDescription(e.target.value) }} placeholder="ここに記事を書いてください。マークダウン記法をご利用いただけます。"></textarea>
+                                    <button disabled={isLoading} onClick={() => document.getElementById('file-input')?.click()} className="bg-yellow-200 dark:text-zinc-700 w-12 h-12 flex items-center justify-center absolute bottom-[10px] right-[10px] rounded-full cursor-pointer">
                                         <Image />
-                                        <input type="file" id="file-input" className="hidden" accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png" />
-                                    </div>
+                                        <input type="file" id="file-input" className="hidden" accept=".jpg,.png,image/jpeg,image/png" onChange={handleImageChange} />
+                                    </button>
                                 </div>
                             </TabsContent>
                             <TabsContent value="password">
                                 <div className={`preview min-h-[400px] bg-white dark:bg-zinc-700 px-8 py-5 rounded-[5px] w-full`}>
-                                    {description}
+                                    <ReactMarkdown
+                                        components={{
+                                            code({ node, className, children, ...props }) {
+                                                return <CodeBlock value={String(children)} {...props} />;
+                                            }
+                                        }}
+                                    >
+                                        {description}
+                                    </ReactMarkdown>
                                 </div>
                             </TabsContent>
                         </div>
