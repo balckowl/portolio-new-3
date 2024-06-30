@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
-        <div className="container mx-auto h-[80px]">
-            <p className="flex items-center justify-end h-full border-t border-[#eee] pt-[10px] text-[13px]">&copy; Portolio</p>
+        <div className="container mx-auto h-[55px]">
+            <p className="flex items-center justify-end h-full text-[13px]">&copy; Portolio</p>
         </div>
     )
 }
