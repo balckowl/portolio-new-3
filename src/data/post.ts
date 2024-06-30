@@ -22,7 +22,8 @@ export const getUserPost = async (userId: string, postId: number) => {
             postId
         },
         include: {
-            user : true
+            user : true,
+            comment : true
         }
     })
 
