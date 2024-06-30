@@ -10,7 +10,9 @@ import { Post, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
-import { error } from "console";
+import { CodeBlock } from "./codeBlock";
+import ReactMarkdown from 'react-markdown'
+import "./css/editer.css"
 
 const Article = ({ title, description, icon, createdAt, updatedAt, id, username, photoUrl, postId }: Post & { id: string, username: string, photoUrl: string | null, postId: number }) => {
 
@@ -40,13 +42,13 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
     }
 
     return (
-        <div className="py-[100px] flex justify-center bg-muted min-h-[calc(100vh-80px-60px)]">
+        <div className="py-[70px] flex items-center justify-center bg-muted min-h-[calc(100vh-80px-80px)]">
             <Toaster />
             <Tabs className="w-[92%] sm:container flex justify-center" defaultValue="markdown">
                 <div className="w-full lg:w-[60%]">
 
                     <div className="mb-[10px] flex items-center gap-3">
-                        <div className="text-[45px] lg:text-[60px]">😀</div>
+                        <div className="text-[30px] lg:text-[40px]">{icon}</div>
                         <h2 className="text-[20px] sm:text-[25px] lg:text-[30px] font-bold">{title}</h2>
                     </div>
 
@@ -77,7 +79,15 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
 
                         <div>
                             <div className="preview">
-                                <div>{description}</div>
+                                <ReactMarkdown
+                                    components={{
+                                        code({ node, className, children, ...props }) {
+                                            return <CodeBlock value={String(children)} {...props} />;
+                                        }
+                                    }}
+                                >
+                                    {description}
+                                </ReactMarkdown>
                             </div>
                         </div>
                     </div>
