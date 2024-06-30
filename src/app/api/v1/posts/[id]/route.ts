@@ -35,13 +35,19 @@ const PUT = async (req: NextRequest, { params }: { params: { id: string }}) => {
   const DELETE = async (req: NextRequest, { params }: { params: { id: string }}) => {
     try {
       const { id: postId } = params;
-      const deletedUserPost = await prisma.post.delete({
+      const deletedPostComment = await prisma.comment.delete({
+        where: {
+            postId: Number(postId),
+          },
+      })
+      const deletedUserPost = await prisma
+      .post.delete({
         where: {
           postId: Number(postId),
         },
-      });
+      })
       console.log(postId);
-      return NextResponse.json(deletedUserPost, { status: 201 });
+      return NextResponse.json({deletedPostComment, deletedUserPost}, { status: 201 });
     } catch (e) {
       console.log(e);
       return e;
