@@ -16,7 +16,7 @@ export default function Picker({ icon, setIcon }: { icon: string, setIcon: Dispa
             <div className="flex flex-col gap-3">
                 {zasetuList.map((zasetu) => (
                     <div className={`flex items-center rounded-lg cursor-pointer border-[3px] ${zasetu.id == icon ? "border-green-300" : "border-[#eee]"}`} onClick={() => setIcon(zasetu.id)}>
-                        <div className="bg-[#eee] py-1 px-3">
+                        <div className="bg-muted py-1 px-3">
                             <Image src={`/images/editor/face${zasetu.id}.png`} width="60" height="60" alt="" />
                         </div>
                         <div className="px-7">{zasetu.text}</div>

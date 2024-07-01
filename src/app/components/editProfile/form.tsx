@@ -72,7 +72,7 @@ const EditForm = ({ id, username, bio, X, photoUrl }: { id: string, username: st
             <div className="w-[95%] mx-auto md:container flex justify-center min-h-[calc(100vh-55px-55px)] items-center">
                 <Toaster />
                 <div className="w-full lg:w-[60%]">
-                    <div className="bg-white lg:flex px-5 py-10 gap-3 rounded-[5px]">
+                    <div className="bg-white dark:bg-zinc-700 lg:flex px-5 py-10 gap-3 rounded-[5px]">
                         <div className="w-full lg:w-[30%] flex justify-center ">
                             <Avatar className="w-[100px] h-[100px]">
                                 <AvatarImage src={photoUrl} alt={"peng_uin"} />
@@ -81,7 +81,7 @@ const EditForm = ({ id, username, bio, X, photoUrl }: { id: string, username: st
                         </div>
                         <div className="w-full lg:w-[60%]">
                             <Form {...form}>
-                                <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+                                <form className="space-y-8 " onSubmit={form.handleSubmit(onSubmit)}>
                                     <FormField
                                         name="name"
                                         render={({ field }) => (
