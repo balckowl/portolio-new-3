@@ -6,23 +6,24 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { CircleHelp, Image, Settings2 } from "lucide-react"
+import { CircleHelp, ImageIcon, Settings2 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ChangeEvent, useState } from "react"
 import { toast, Toaster } from "react-hot-toast";
-import Picker from '@emoji-mart/react';
 import ReactMarkdown from 'react-markdown'
 import "./css/editer.css"
 import { CodeBlock } from "./codeBlock"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { storage } from "@/lib/firebase/client"
+import Picker from "./picker"
+
 
 const Editor = () => {
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [icon, setIcon] = useState<string>("🍙");
+    const [icon, setIcon] = useState<string>("1");
 
     const router = useRouter();
 
@@ -115,14 +116,8 @@ const Editor = () => {
                                         <Settings2 />
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="w-full" side="right">
-                                    <div className="flex w-full h-[70px] border-[1px] border-[#eee] rounded-[5px] mb-[20px]">
-                                        <div className="w-[20%] h-full text-[40px] bg-[#eee] rounded-tl-[5px] rounded-bl-[5px] flex items-center justify-center">
-                                            {icon} {/* 絵文字を正しく表示 */}
-                                        </div>
-                                        <div className="w-[80%] h-full flex items-center justify-center">失敗度をアイコンで表そう</div>
-                                    </div>
-                                    <Picker onEmojiSelect={(emoji: any) => { setIcon(emoji.native); }} />
+                                <PopoverContent className="w-full" side="bottom" align="end">
+                                    <Picker setIcon={setIcon} icon={icon}/>
                                 </PopoverContent>
                             </Popover>
 
@@ -141,7 +136,7 @@ const Editor = () => {
                                 <div className="h-[400px] bg-white dark:bg-zinc-700 p-5 rounded-[5px] relative w-full">
                                     <textarea name="" className="h-full w-full focus:outline-none resize-none bg-white dark:bg-zinc-700" value={description} onChange={(e) => { setDescription(e.target.value) }} placeholder="ここに記事を書いてください。マークダウン記法をご利用いただけます。"></textarea>
                                     <button disabled={isLoading} onClick={() => document.getElementById('file-input')?.click()} className="bg-yellow-200 dark:text-zinc-700 w-12 h-12 flex items-center justify-center absolute bottom-[10px] right-[10px] rounded-full cursor-pointer">
-                                        <Image />
+                                        <ImageIcon />
                                         <input type="file" id="file-input" className="hidden" accept=".jpg,.png,image/jpeg,image/png" onChange={handleImageChange} />
                                     </button>
                                 </div>
