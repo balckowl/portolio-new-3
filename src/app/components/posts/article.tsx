@@ -185,7 +185,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                         )}
                     </div>
 
-                    <div className={`p-2 ${comment.description ? "bg-green-300" : "bg-red-300"} rounded-tr-lg rounded-tl-lg p-5`}>
+                    <div className={`p-2 ${comment.description ? "bg-green-300 dark:bg-green-600" : "bg-red-300 dark:bg-red-500"} rounded-tr-lg rounded-tl-lg p-5`}>
                         <div className="flex items-center justify-between">
                             <p className="font-bold text-[30px]">{comment.description ? "解決" : "挫折中..."}</p>
                             {!isEdittingComment && (<Button onClick={() => setIsEdittingComment(true)} disabled={isLoading} className="flex gap-3">
@@ -201,7 +201,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                     </div>
 
                     <div className="min-h-[400px] bg-white dark:bg-zinc-700 p-5 rounded-[5px] mb-[10px]">
-                        <div className="border-[1px] border-[#eee] rounded-[5px] flex justify-between p-3 mb-[15px]">
+                        <div className="border-[1px] border-muted rounded-[5px] flex justify-between p-3 mb-[15px]">
                             <div className="flex-col sm:flex-row flex sm:items-center sm:gap-3">
                                 <div className="text-[13px]">{createdAtFormatted} </div>
                                 <div className="flex items-center gap-1 text-[13px]">
@@ -257,8 +257,8 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                                         </ReactMarkdown>
                                     </TabsContent>
                                     <TabsContent className="relative" value="markdown">
-                                        <textarea value={currentDescription} className="w-full h-[400px] resize-none focus:outline-none" onChange={(e) => setCurrentDescription(e.target.value)}></textarea>
-                                        <div onClick={() => document.getElementById('file-input')?.click()} className="bg-yellow-200 w-12 h-12 flex items-center justify-center absolute bottom-[10px] right-[10px] rounded-full cursor-pointer">
+                                        <textarea value={currentDescription} className="dark:bg-zinc-700 w-full h-[400px] resize-none focus:outline-none" onChange={(e) => setCurrentDescription(e.target.value)}></textarea>
+                                        <div onClick={() => document.getElementById('file-input')?.click()} className="bg-yellow-200 dark:text-zinc-700 w-12 h-12 flex items-center justify-center absolute bottom-[10px] right-[10px] rounded-full cursor-pointer">
                                             <ImageIcon />
                                             <input type="file" id="file-input" className="hidden" onChange={handleImageChange} accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png" />
                                         </div>

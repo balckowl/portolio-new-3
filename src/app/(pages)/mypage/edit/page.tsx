@@ -14,7 +14,7 @@ const EditProfilePage = async () => {
     return (
         <div>
             <Header />
-            <div className="bg-[#eee]">
+            <div className="bg-muted">
                 <EditForm id={id} username={username} bio={bio ? bio : ""} X={X ? X : ""} photoUrl={photoUrl as string} />
             </div>
             <Footer />
