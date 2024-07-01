@@ -14,8 +14,16 @@ const POST = async (req: NextRequest) => {
         icon,
       },
     });
-    console.log(newUserPost);
-    return NextResponse.json(newUserPost, { status: 201 });
+
+    const newPostComment = await prisma.comment.create({
+      data: {
+        postId: newUserPost.postId,
+        description: "",
+      },
+    });
+
+    console.log(newUserPost, newPostComment);
+    return NextResponse.json({ newUserPost, newPostComment }, { status: 201 });
   } catch (e) {
     console.log(e);
     return e;

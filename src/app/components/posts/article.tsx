@@ -1,10 +1,9 @@
 "use client"
 
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CircleHelp, Image, RefreshCw, Settings2 } from "lucide-react"
+import { CircleHelp, Image, Pen, PenIcon, RefreshCw, Settings2 } from "lucide-react"
 import Link from "next/link";
 import { format } from "date-fns";
 import { Comment, Post, User } from "@prisma/client";
@@ -20,7 +19,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "@/lib/firebase/client";
 
 
-const Article = ({ title, description, icon, createdAt, updatedAt, id, username, photoUrl, postId, comment }: Post & { id: string, username: string, photoUrl: string | null, postId: number } & { comment: Comment | string }) => {
+const Article = ({ title, description, icon, createdAt, updatedAt, id, username, photoUrl, postId, comment }: Post & { id: string, username: string, photoUrl: string | null, postId: number } & { comment: Comment }) => {
 
 
     const createdAtFormatted = format(createdAt, "yyyy/MM/dd");
@@ -36,7 +35,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
     const [currentDescription, setCurrentDescription] = useState<string>(description);
     const [currentIcon, setCurrentIcon] = useState<string>(icon);
 
-    const [currentComment, setCurrentComment] = useState<string>("");
+    const [currentComment, setCurrentComment] = useState<string | null>(comment.description);
 
     const deletePost = async () => {
         try {
@@ -93,21 +92,14 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
     }
 
 
-    const createComment = async () => {
-        //        console.log(currentComment)
+    const updateComment = async () => {
 
         setIsLoading(true);
-
-        if (!currentComment) {
-            toast.error("コメントを入力してください");
-            return;
-        }
-
         const loading = toast.loading("送信中...")
 
         try {
             const res = await fetch("http://localhost:3000/api/v1/comment", {
-                method: "POST",
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -116,15 +108,15 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                     description: currentComment
                 })
             })
+
             const data = await res.json();
             console.log(data);
 
             setIsLoading(false);
             toast.dismiss(loading);
-
             toast.success("送信が完了しました");
-
             router.refresh();
+
         } catch (e) {
             return;
         }
@@ -133,13 +125,6 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
 
     //画像を挿入する関数
     const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
-
-
-
-
-
-
-
 
         if (!e.target.files) return;
         const loading = toast.loading("アップロード中...");
@@ -201,6 +186,21 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                             <input type="text" placeholder="ここにタイトルを入力してください。" className="w-full bg-muted focus:outline-none text-[18px] md:text-[25px] lg:text-[30px]" value={currentTitle} onChange={(e) => setCurrentTitle(e.target.value)} />
                         )}
                     </div>
+
+                    <div className={`p-2 ${comment.description ? "bg-green-300": "bg-red-300"}`}>
+                        <div className="flex items-center justify-between">
+                            <p className="font-bold text-[30px]">{comment.description ? "解決" :"未解決"}</p>
+                            {!isEdittingComment && (<Button onClick={() => setIsEdittingComment(true)} disabled={isLoading} variant="outline">
+                                <PenIcon />
+                            </Button>)}
+                            {isEdittingComment && (<Button onClick={() => { updateComment(); setIsEdittingComment(false) }}>投稿</Button>)}
+                        </div>
+                        {isEdittingComment && (<div className="mt-[10px]">
+                            <textarea className="w-full h-[100px] resize-none rounded-lg outline-none p-2 text-[14px]" placeholder="解決時のエピソードを教えてください。" value={currentComment as string} onChange={(e) => { setCurrentComment(e.target.value); }}></textarea>
+                        </div>)}
+                        {!isEdittingComment && <div>{comment.description}</div>}
+                    </div>
+
                     <div className="min-h-[400px] bg-white dark:bg-zinc-700 p-5 rounded-[5px] mb-[10px]">
                         <div className="border-[1px] border-[#eee] rounded-[5px] flex justify-between p-3 mb-[15px]">
                             <div className="flex-col sm:flex-row flex sm:items-center sm:gap-3">
@@ -222,13 +222,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                         </div>
 
 
-                        <div className={`flex justify-between mb-[15px]`}>
-                            {!isEdittingComment && (<Button onClick={() => setIsEdittingComment(true)} disabled={isLoading}>解決</Button>)}
-
-
-                            {isEdittingComment && (<Button onClick={() => { createComment(); setIsEdittingComment(false) }}>送信</Button>)}
-
-
+                        <div className={`flex justify-end mb-[15px]`}>
                             <div className={`flex gap-2`}>
                                 {isEditting ? (
                                     <Button onClick={updatePost} disabled={isLoading}>更新</Button>
@@ -236,17 +230,6 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                                 <Button onClick={deletePost} disabled={isLoading}>削除</Button>
                             </div>
                         </div>
-                        {isEdittingComment && (
-                            <div>
-                                <p>解決コメントを入力してください</p>
-                                <textarea className="w-full" value={currentComment} onChange={(e) => { setCurrentComment(e.target.value); }}></textarea>
-                            </div>
-                        )}
-
-
-                        {/* {comment && (
-                            <div className="bg-red-100 p-2">{comment?.description as string} </div>
-                        )} */}
 
                         {!isEditting ? (
                             <div className="preview">
