@@ -4,7 +4,7 @@ import Post from "./post";
 const PostList = ({ userPosts }: { userPosts: userPost[] }) => {
 
     return (
-        <div className="bg-zinc-200 dark:bg-zinc-700 min-h-[calc(100vh-55px-55px-300px)] flex items-center">
+        <div className="bg-zinc-200 dark:bg-zinc-700 py-[180px]">
             <div className="container flex justify-center">
                 <div className="w-full lg:w-[80%]">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

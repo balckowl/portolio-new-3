@@ -18,6 +18,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "@/lib/firebase/client";
 import Image from "next/image";
 import Picker from "./picker";
+import { Textarea } from "@/components/ui/textarea";
 
 
 const Article = ({ title, description, icon, createdAt, updatedAt, id, username, photoUrl, postId, comment }: Post & { id: string, username: string, photoUrl: string | null, postId: number } & { comment: Comment }) => {
@@ -184,16 +185,17 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                         )}
                     </div>
 
-                    <div className={`p-2 ${comment.description ? "bg-green-300" : "bg-red-300"}`}>
+                    <div className={`p-2 ${comment.description ? "bg-green-300" : "bg-red-300"} rounded-tr-lg rounded-tl-lg p-5`}>
                         <div className="flex items-center justify-between">
-                            <p className="font-bold text-[30px]">{comment.description ? "解決" : "未解決"}</p>
-                            {!isEdittingComment && (<Button onClick={() => setIsEdittingComment(true)} disabled={isLoading} variant="outline">
-                                <PenIcon />
+                            <p className="font-bold text-[30px]">{comment.description ? "解決" : "挫折中..."}</p>
+                            {!isEdittingComment && (<Button onClick={() => setIsEdittingComment(true)} disabled={isLoading} className="flex gap-3">
+                                <PenIcon width="15" height="15"/>
+                                <p>解決コメント</p>
                             </Button>)}
                             {isEdittingComment && (<Button onClick={() => { updateComment(); setIsEdittingComment(false) }}>投稿</Button>)}
                         </div>
                         {isEdittingComment && (<div className="mt-[10px]">
-                            <textarea className="w-full h-[100px] resize-none rounded-lg outline-none p-2 text-[14px]" placeholder="解決時のエピソードを教えてください。" value={currentComment as string} onChange={(e) => { setCurrentComment(e.target.value); }}></textarea>
+                            <Textarea className="w-full h-[100px] resize-none rounded-lg outline-none p-2 text-[14px]" placeholder="解決時のエピソードを教えてください。" value={currentComment as string} onChange={(e) => { setCurrentComment(e.target.value); }} />
                         </div>)}
                         {!isEdittingComment && <div>{comment.description}</div>}
                     </div>
