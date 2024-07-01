@@ -3,7 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CircleHelp, Image, Pen, PenIcon, RefreshCw, Settings2 } from "lucide-react"
+import { CircleHelp, ImageIcon, Pen, PenIcon, RefreshCw, Settings2 } from "lucide-react"
 import Link from "next/link";
 import { format } from "date-fns";
 import { Comment, Post, User } from "@prisma/client";
@@ -14,9 +14,10 @@ import { CodeBlock } from "./codeBlock";
 import ReactMarkdown from 'react-markdown'
 import "./css/editer.css"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import Picker from '@emoji-mart/react';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "@/lib/firebase/client";
+import Image from "next/image";
+import Picker from "./picker";
 
 
 const Article = ({ title, description, icon, createdAt, updatedAt, id, username, photoUrl, postId, comment }: Post & { id: string, username: string, photoUrl: string | null, postId: number } & { comment: Comment }) => {
@@ -163,21 +164,17 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                 <div className="w-full lg:w-[60%]">
                     <div className="mb-[10px] flex items-center gap-3">
                         {!isEditting ? (
-                            <div className="text-[30px] lg:text-[40px]">{icon}</div>) : (
+                            <div>
+                                <Image src={`/images/editor/face${icon}.png`} alt="" width="80" height="80" />
+                            </div>) : (
                             <Popover>
                                 <PopoverTrigger asChild>
                                     <Button variant="outline">
                                         <Settings2 />
                                     </Button>
                                 </PopoverTrigger>
-                                <PopoverContent className="w-full" side="right">
-                                    <div className="flex w-full h-[70px] border-[1px] border-[#eee] rounded-[5px] mb-[20px]">
-                                        <div className="w-[20%] h-full text-[40px] bg-[#eee] rounded-tl-[5px] rounded-bl-[5px] flex items-center justify-center">
-                                            {currentIcon} {/* 絵文字を正しく表示 */}
-                                        </div>
-                                        <div className="w-[80%] h-full flex items-center justify-center">失敗度をアイコンで表そう</div>
-                                    </div>
-                                    <Picker onEmojiSelect={(emoji: any) => { setCurrentIcon(emoji.native); }} />
+                                <PopoverContent className="w-full" side="bottom" align="start">
+                                    <Picker icon={currentIcon} setIcon={setCurrentIcon}/>
                                 </PopoverContent>
                             </Popover>)}
                         {!isEditting ? (
@@ -187,9 +184,9 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                         )}
                     </div>
 
-                    <div className={`p-2 ${comment.description ? "bg-green-300": "bg-red-300"}`}>
+                    <div className={`p-2 ${comment.description ? "bg-green-300" : "bg-red-300"}`}>
                         <div className="flex items-center justify-between">
-                            <p className="font-bold text-[30px]">{comment.description ? "解決" :"未解決"}</p>
+                            <p className="font-bold text-[30px]">{comment.description ? "解決" : "未解決"}</p>
                             {!isEdittingComment && (<Button onClick={() => setIsEdittingComment(true)} disabled={isLoading} variant="outline">
                                 <PenIcon />
                             </Button>)}
@@ -260,7 +257,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                                     <TabsContent className="relative" value="markdown">
                                         <textarea value={currentDescription} className="w-full h-[400px] resize-none focus:outline-none" onChange={(e) => setCurrentDescription(e.target.value)}></textarea>
                                         <div onClick={() => document.getElementById('file-input')?.click()} className="bg-yellow-200 w-12 h-12 flex items-center justify-center absolute bottom-[10px] right-[10px] rounded-full cursor-pointer">
-                                            <Image />
+                                            <ImageIcon />
                                             <input type="file" id="file-input" className="hidden" onChange={handleImageChange} accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png" />
                                         </div>
                                     </TabsContent>
