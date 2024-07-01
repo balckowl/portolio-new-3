@@ -7,9 +7,9 @@ const Post = async ({ icon, title, postId }: { icon: string, title: string, post
     const comment = await getComment(postId);
 
     return (
-        <div className="relative col-span-1 border-[1px] rounded-[5px] bg-muted">
+        <div className="relative col-span-1 border-[1px] rounded-[5px]">
             <Link href={`/posts/${postId}`}>
-                <div className="flex justify-center py-5">
+                <div className="flex justify-center py-5 bg-muted">
                     <Image src={`/images/editor/face${icon}.png`} alt="" width="80" height="80" />
                 </div>
                 <div className={`bg-white dark:bg-zinc-700 py-5 px-5 h-[100px] rounded-b-md`}>
