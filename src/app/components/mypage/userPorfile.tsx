@@ -4,6 +4,7 @@ import { getUser } from "@/data/user"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons"
 import { Pen } from "lucide-react"
+import Link from "next/link"
 
 
 const UserProfile = async () => {
@@ -26,16 +27,18 @@ const UserProfile = async () => {
                         <div>
                             <div className="flex items-center gap-3">
                                 <h2 className="text-[30px] font-bold">{username}</h2>
-                                {X && <a href={X} target="_blank">
-                                    <FontAwesomeIcon icon={faXTwitter} width={20} height={20}/>
+                                {X && <a href={`https://x.com/${X}`} target="_blank">
+                                    <FontAwesomeIcon icon={faXTwitter} width={20} height={20} />
                                 </a>}
                             </div>
                             {bio && <p className="text-[13px] sm:text-[16px]">{bio}</p>}
                         </div>
                     </div>
-                    <Button variant="outline" className="flex items-center gap-2">
-                        <Pen width={18} height={18}/>
-                        <p>編集する</p>
+                    <Button variant="outline">
+                        <Link href="/mypage/edit" className="flex items-center gap-2">
+                            <Pen width={18} height={18} />
+                            <p>編集する</p>
+                        </Link>
                     </Button>
                 </div>
             </div>
