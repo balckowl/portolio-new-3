@@ -1,3 +1,4 @@
+import { firebaseAdmin } from "@/lib/firebase/admin";
 import prisma from "@/lib/prisma/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -5,11 +6,14 @@ import { NextRequest, NextResponse } from "next/server";
 // 旧：get_user(user_id)
 const POST = async (req: NextRequest) => {
   try {
-    const { id, username } = await req.json();
+    const { idToken } = await req.json()
+    const decodedToken = await firebaseAdmin.auth().verifyIdToken(idToken)
+    const { uid: id, name: username, picture: photoUrl } = decodedToken;
     const newUser = await prisma.user.create({
       data: {
         id,
         username,
+        photoUrl
       },
     });
     console.log(newUser);
