@@ -37,7 +37,7 @@ const Header = () => {
                         </PopoverContent>
                     </Popover>
                     <Button variant="ghost">
-                        <Link href="/mypage">
+                        <Link href="/auth/login">
                             ログイン
                         </Link>
                     </Button>

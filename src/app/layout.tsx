@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import SessionProvider from "../app/components/auth/sessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="min-h-[calc(100vh-55px-55px)]">{children}</main>
+          <SessionProvider>
+            <main className="min-h-[calc(100vh-55px-55px)]">{children}</main>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>
