@@ -41,7 +41,7 @@ const SiginInWithGoogleBtn = () => {
                 })
             }
 
-            signIn("credentials", { callbackUrl: '/myPage', idToken })
+            signIn("credentials", { callbackUrl: `/${uid}`, idToken })
 
         }).catch((err) => {
             //エラー情報をクライアントに伝える処理を書く。

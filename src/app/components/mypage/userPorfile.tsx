@@ -7,7 +7,7 @@ import { Pen } from "lucide-react"
 import Link from "next/link"
 
 
-const UserProfile = async () => {
+const UserProfile = async ({userId, uid}:{userId:string, uid:string}) => {
 
     const user = await getUser("rocket_peng")
 
@@ -34,12 +34,12 @@ const UserProfile = async () => {
                             {bio && <p className="text-[13px] sm:text-[16px]">{bio}</p>}
                         </div>
                     </div>
-                    <Button variant="outline">
+                    {userId == uid && <Button variant="outline">
                         <Link href="/mypage/edit" className="flex items-center gap-2">
                             <Pen width={18} height={18} />
                             <p>編集する</p>
                         </Link>
-                    </Button>
+                    </Button>}
                 </div>
             </div>
         </div>
