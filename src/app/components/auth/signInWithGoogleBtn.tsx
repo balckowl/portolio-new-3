@@ -32,13 +32,13 @@ const SiginInWithGoogleBtn = () => {
                 });
 
                 //supabaseに保存するため、サーバー側に送信
-                // await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`, {
-                //     body: JSON.stringify({ idToken }),
-                //     headers: {
-                //         'Content-Type': 'application/json'
-                //     },
-                //     method: "POST"
-                // })
+                await fetch(`http://localhost:3000/api/v1/user`, {
+                    body: JSON.stringify({ idToken }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST"
+                })
             }
 
             signIn("credentials", { callbackUrl: '/myPage', idToken })
