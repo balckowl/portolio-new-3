@@ -14,14 +14,18 @@
 
 .preview h3{
     font-size: 22px;
-    border-bottom: 1px solid #eee;
     font-weight: 700;
     margin-block: 30px;
 }
 
 .preview h4{
     font-size: 18px;
-    border-bottom: 1px solid #eee;
+    font-weight: 700;
+    margin-block: 30px;
+}
+
+.preview h5{
+    font-size: 15px;
     font-weight: 700;
     margin-block: 30px;
 }
@@ -34,14 +38,43 @@
 .preview ul {
     list-style-type: disc;
     list-style-position: inside;
-    margin-bottom: 30px;
+    margin-bottom: 1px;
+}
+
+.preview ul>li>ul, .preview ol>li>ul{
+    list-style-type: circle;
+    list-style-position: inside;
+    margin-bottom: 1px;
+    text-indent: 15px;
+}
+
+.preview ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+    margin-bottom: 1px;
+}
+
+.preview ol>li>ol, .preview ul>li>ol{
+    list-style-type: decimal;
+    list-style-position: inside;
+    margin-bottom: 1px;
+    text-indent: 15px;
 }
 
 .preview a{
-    color: blue;
+    color: rgb(117, 194, 245);
     text-decoration: underline;
 }
 
 .preview pre {
     margin-bottom: 30px;
+}
+
+.preview blockquote{
+    padding-left: 5px;
+    border-left: 3px rgb(117, 194, 245) solid;
+}
+
+.preview blockquote p {
+    margin-bottom: 0px;
 }

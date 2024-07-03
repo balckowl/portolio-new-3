@@ -142,7 +142,7 @@ const Editor = ({ uid }: { uid: string }) => {
                                 </div>
                             </TabsContent>
                             <TabsContent value="password">
-                                <div className={`preview min-h-[400px] bg-white dark:bg-zinc-700 px-8 py-5 rounded-[5px] w-full`}>
+                                <div className={`preview min-h-[400px] bg-white dark:bg-zinc-700 px-8 py-5 rounded-[5px] w-full break-words whitespace-pre-wrap`}>
                                     <ReactMarkdown
                                         components={{
                                             code({ node, className, children, ...props }) {
@@ -156,7 +156,7 @@ const Editor = ({ uid }: { uid: string }) => {
                             </TabsContent>
                         </div>
                         <div className="flex justify-end items-center gap-3">
-                            <Link href="/posts/2" target="_blank">
+                            <Link href="/posts/1" target="_blank">
                                 <div className="bg-muted py-2 px-2 flex items-center gap-3 cursor-pointer rounded-[10px]">
                                     <CircleHelp width={20} height={20} />
                                 </div>

@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CircleHelp, ImageIcon, Pen, PenIcon, RefreshCw, Settings2 } from "lucide-react"
 import Link from "next/link";
 import { format } from "date-fns";
-import { Comment, Post, User } from "@prisma/client";
+import { Post } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { ChangeEvent, useState } from "react";
@@ -19,7 +19,6 @@ import { storage } from "@/lib/firebase/client";
 import Image from "next/image";
 import Picker from "./picker";
 import { Textarea } from "@/components/ui/textarea";
-
 
 const Article = ({ title, description, icon, createdAt, updatedAt, username, photoUrl, postId, comment, uid, userId }: Post & { uid: string, username: string, photoUrl: string | null, postId: number } & { comment: any }) => {
 
@@ -179,7 +178,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, username, pho
                                 </PopoverContent>
                             </Popover>)}
                         {!isEditting ? (
-                            <h2 className="text-[25px] lg:text-[30px] font-bold">{title}</h2>
+                            <h2 className="text-[25px] lg:text-[30px] font-bold break-words w-full whitespace-pre-wrap">{title}</h2>
                         ) : (
                             <input type="text" placeholder="ここにタイトルを入力してください。" className="w-full bg-muted focus:outline-none text-[18px] md:text-[25px] lg:text-[30px]" value={currentTitle} onChange={(e) => setCurrentTitle(e.target.value)} />
                         )}
@@ -230,7 +229,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, username, pho
                         </div>}
 
                         {!isEditting ? (
-                            <div className="preview">
+                            <div className="preview break-words whitespace-pre-wrap">
                                 <ReactMarkdown
                                     components={{
                                         code({ node, className, children, ...props }) {
@@ -268,7 +267,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, username, pho
                     </div>
                     {isEditting &&
                         (<div className="flex justify-end items-center gap-3">
-                            <Link href="/posts/2" target="_blank">
+                            <Link href="/posts/1" target="_blank">
                                 <div className="bg-muted py-2 px-2 flex items-center gap-3 cursor-pointer rounded-[5px]">
                                     <CircleHelp width={20} height={20} />
                                 </div>
