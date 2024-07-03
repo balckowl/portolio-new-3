@@ -9,12 +9,9 @@ import SignOutBtn from "./signOutBtn"
 import {
     Sheet,
     SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import { AlignJustify, LogOut } from "lucide-react"
+import { AlignJustify } from "lucide-react"
 
 const Header = async () => {
     const session = await getServerSession(authOptions)
@@ -93,51 +90,15 @@ const Header = async () => {
                                     </ul>
                                 </PopoverContent>
                             </Popover>
-                            <Link href="/posts/create">
-                                <Button>
-                                    記事を書く
-                                </Button>
-                            </Link>
-                            <ModeToggle />
-                        </div>
-                    </>
-                )}
-                {/* <div className="flex gap-4 items-center">
-                    {session &&
-                        (<div className="flex gap-4">
-                            <Popover>
-                                <PopoverTrigger>
-                                    {session?.user && <Avatar>
-                                        <AvatarImage src={session.user.photoURL} alt="@shadcn" />
-                                        <AvatarFallback>{session.user.name}</AvatarFallback>
-                                    </Avatar>}
-                                </PopoverTrigger>
-                                <PopoverContent className="w-full p-0">
-                                    <h3 className="border-b border-[#eee] p-3 font-bold">{session.user.name}</h3>
-                                    <ul className="p-3 flex gap-3 flex-col">
-                                        <li>
-                                            <Link href={`/${session.user.uid}`}>My Portolio</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/mypage/edit">プロフィール設定</Link>
-                                        </li>
-                                        <SignOutBtn />
-                                    </ul>
-                                </PopoverContent>
-                            </Popover>
-                            <Button>
+                            <Button asChild>
                                 <Link href="/posts/create">
                                     記事を書く
                                 </Link>
                             </Button>
-                        </div>)}
-                    {!session && <Button variant="ghost">
-                        <Link href="/auth/login">
-                            はじめる
-                        </Link>
-                    </Button>}
-                    <ModeToggle />
-                </div> */}
+                            <ModeToggle />
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     )
