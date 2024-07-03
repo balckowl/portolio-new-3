@@ -1,19 +1,22 @@
 "use client"
-import { GithubAuthProvider, GoogleAuthProvider, getAdditionalUserInfo, signInWithPopup } from "firebase/auth"
+import { GithubAuthProvider, signInWithPopup } from "firebase/auth"
 import { doc, getDoc, setDoc } from "firebase/firestore"
-import Image from "next/image"
 import { signIn } from "next-auth/react"
-
 import { Button } from "@/components/ui/button"
 import { auth, db } from "@/lib/firebase/client"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faGithub } from "@fortawesome/free-brands-svg-icons"
+import { Dispatch, SetStateAction } from "react"
 
-const SiginInWithGoogleBtn = () => {
+const SiginInWithGoogleBtn = ({isLoading, setIsLoading}:{isLoading: boolean, setIsLoading: Dispatch<SetStateAction<boolean>>}) => {
 
     const githubProvider = new GithubAuthProvider
 
     const signInWithGoogle = async () => {
 
         await signInWithPopup(auth, githubProvider).then(async (credential) => {
+
+            setIsLoading(true)
 
             const idToken = await credential.user.getIdToken(true)
 
@@ -42,8 +45,9 @@ const SiginInWithGoogleBtn = () => {
                     method: "POST"
                 })
             }
-
+        
             signIn("credentials", { callbackUrl: `/${uid}`, idToken })
+            setIsLoading(true)
 
         }).catch((err) => {
             //エラー情報をクライアントに伝える処理を書く。
@@ -54,10 +58,8 @@ const SiginInWithGoogleBtn = () => {
 
     return (
         <Button onClick={signInWithGoogle} className="flex gap-3" variant="outline">
-            <div>
-                <Image src="/images/auth/google-icon.svg" width={20} height={20} alt="google-icon" />
-            </div>
-            <p>Sign In with Google</p>
+            <FontAwesomeIcon icon={faGithub} />
+            <p>Sign In with GitHub</p>
         </Button>
     )
 }

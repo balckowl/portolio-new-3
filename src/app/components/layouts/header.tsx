@@ -29,7 +29,7 @@ const Header = async () => {
                 </h1>
                 {!session ? (
                     <>
-                        <ModeToggle/>
+                        <ModeToggle />
                     </>
                 ) : (
                     <>
@@ -61,9 +61,11 @@ const Header = async () => {
                                             <Link href={`/posts/create`}>
                                                 <li>記事を書く</li>
                                             </Link>
-                                            <SignOutBtn/>
+                                            <SignOutBtn />
                                         </ul>
-                                        <ModeToggle/>
+                                        <div className="p-4 border-t">
+                                            <ModeToggle />
+                                        </div>
                                     </div>
                                 </SheetContent>
                             </Sheet>
@@ -87,7 +89,7 @@ const Header = async () => {
                                         <Link href={`/${session?.user?.uid}/edit`}>
                                             <li>プロフィール設定</li>
                                         </Link>
-                                        <SignOutBtn/>
+                                        <SignOutBtn />
                                     </ul>
                                 </PopoverContent>
                             </Popover>
@@ -96,7 +98,7 @@ const Header = async () => {
                                     記事を書く
                                 </Button>
                             </Link>
-                            <ModeToggle/>
+                            <ModeToggle />
                         </div>
                     </>
                 )}
