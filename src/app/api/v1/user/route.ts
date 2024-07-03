@@ -8,12 +8,14 @@ const POST = async (req: NextRequest) => {
   try {
     const { idToken } = await req.json()
     const decodedToken = await firebaseAdmin.auth().verifyIdToken(idToken)
+    console.log(decodedToken.firebase.identities)
     const { uid: id, name: username, picture: photoUrl } = decodedToken;
+
     const newUser = await prisma.user.create({
       data: {
         id,
         username,
-        photoUrl
+        photoUrl,
       },
     });
     console.log(newUser);

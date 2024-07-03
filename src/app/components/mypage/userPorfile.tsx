@@ -7,13 +7,13 @@ import { Pen } from "lucide-react"
 import Link from "next/link"
 
 
-const UserProfile = async ({userId, uid}:{userId:string, uid:string}) => {
+const UserProfile = async ({ userId, uid }: { userId: string, uid: string }) => {
 
-    const user = await getUser("rocket_peng")
+    const user = await getUser(userId)
 
     if (!user) return
 
-    const { id, username, bio, X, photoUrl } = user
+    const { username, bio, X, photoUrl } = user
 
     return (
         <div className="h-[400px] lg:h-[300px] bg-muted">
@@ -22,7 +22,7 @@ const UserProfile = async ({userId, uid}:{userId:string, uid:string}) => {
                     <div className="w-full lg:w-[70%] flex flex-col lg:flex-row items-center gap-8 mb-[15px] lg:mb-0">
                         {photoUrl && <Avatar className="w-[100px] h-[100px]">
                             <AvatarImage src={photoUrl} alt="@shadcn" />
-                            <AvatarFallback>icon</AvatarFallback>
+                            <AvatarFallback>{username}</AvatarFallback>
                         </Avatar>}
                         <div>
                             <div className="flex items-center gap-3">

@@ -14,11 +14,10 @@ export const getUserPosts = async (userId: string) => {
     return userPosts
 }
 
-export const getUserPost = async (userId: string, postId: number) => {
+export const getPost = async (postId: number) => {
 
     const userPost = await prisma.post.findUnique({
         where: {
-            userId,
             postId
         },
         include: {

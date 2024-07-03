@@ -1,9 +1,18 @@
 import Editor from "@/app/components/posts/editor";
+import { authOptions } from "@/lib/next-auth/options";
+import { getServerSession } from "next-auth";
 
-const CreatePage = () => {
+const CreatePage = async() => {
+
+    const session = await getServerSession(authOptions)
+
+    if(!session){
+        return
+    }
+
     return (
         <div className="bg-muted min-h-screen">
-            <Editor/>
+            <Editor uid={session.user.uid}/>
         </div>
     )
 }

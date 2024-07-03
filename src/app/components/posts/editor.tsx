@@ -19,7 +19,7 @@ import { storage } from "@/lib/firebase/client"
 import Picker from "./picker"
 
 
-const Editor = () => {
+const Editor = ({ uid }: { uid: string }) => {
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -45,7 +45,7 @@ const Editor = () => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    userId: "rocket_peng",
+                    userId: uid,
                     title: title,
                     description: description,
                     icon: icon
@@ -59,7 +59,7 @@ const Editor = () => {
 
             toast.dismiss(loading);
             toast.success("送信できました");
-            router.push("/mypage");
+            router.push(`/${uid}`);
             router.refresh();
 
         } catch (e) {
@@ -117,7 +117,7 @@ const Editor = () => {
                                     </Button>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-full" side="bottom" align="end">
-                                    <Picker setIcon={setIcon} icon={icon}/>
+                                    <Picker setIcon={setIcon} icon={icon} />
                                 </PopoverContent>
                             </Popover>
 

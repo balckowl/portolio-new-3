@@ -39,7 +39,7 @@ model Comment {
   commentId Int @id @default(autoincrement()) 
   post Post @relation(fields: [postId], references: [postId])
   postId Int @unique
-  description String
+  description String @default("")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt  
 }
