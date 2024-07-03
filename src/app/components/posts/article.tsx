@@ -3,7 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CircleHelp, ImageIcon, Pen, PenIcon, RefreshCw, Settings2 } from "lucide-react"
+import { CircleHelp, ImageIcon, Pen, PenIcon, RefreshCw, Settings2, Trash2 } from "lucide-react"
 import Link from "next/link";
 import { format } from "date-fns";
 import { Post } from "@prisma/client";
@@ -19,6 +19,7 @@ import { storage } from "@/lib/firebase/client";
 import Image from "next/image";
 import Picker from "./picker";
 import { Textarea } from "@/components/ui/textarea";
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const Article = ({ title, description, icon, createdAt, updatedAt, username, photoUrl, postId, comment, uid, userId }: Post & { uid: string, username: string, photoUrl: string | null, postId: number } & { comment: any }) => {
 
@@ -224,7 +225,21 @@ const Article = ({ title, description, icon, createdAt, updatedAt, username, pho
                                 {isEditting ? (
                                     <Button onClick={updatePost} disabled={isLoading}>更新</Button>
                                 ) : (<Button onClick={() => setIsEditting(true)}>編集</Button>)}
-                                <Button onClick={deletePost} disabled={isLoading}>削除</Button>
+                                <Dialog>
+                                    <DialogTrigger asChild>
+                                        <Button disabled={isLoading}>削除</Button>
+                                    </DialogTrigger>
+                                    <DialogContent>
+                                        <p className="text-center">本当に削除しますか? </p>
+                                        <Trash2 className="mx-auto" width="100" height="100"/>
+                                        <div className="flex gap-5 justify-center">
+                                            <Button onClick={deletePost} disabled={isLoading}>はい</Button>
+                                            <DialogClose asChild>
+                                                <Button>いいえ</Button>
+                                            </DialogClose>
+                                        </div>
+                                    </DialogContent>
+                                </Dialog>
                             </div>
                         </div>}
 
