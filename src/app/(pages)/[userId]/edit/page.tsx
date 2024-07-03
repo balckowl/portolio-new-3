@@ -2,10 +2,18 @@ import EditForm from "@/app/components/editProfile/form";
 import Footer from "@/app/components/layouts/footer";
 import Header from "@/app/components/layouts/header";
 import { getUser } from "@/data/user";
+import { authOptions } from "@/lib/next-auth/options";
+import { getServerSession } from "next-auth";
 
 const EditProfilePage = async () => {
 
-    const user = await getUser("rocket_peng")
+    const session = await getServerSession(authOptions)
+
+    if(!session){
+        return
+    }
+
+    const user = await getUser(session.user.uid)
 
     if (!user) return
 

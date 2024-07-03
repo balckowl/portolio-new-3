@@ -1,5 +1,5 @@
 "use client"
-import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { GithubAuthProvider, GoogleAuthProvider, getAdditionalUserInfo, signInWithPopup } from "firebase/auth"
 import { doc, getDoc, setDoc } from "firebase/firestore"
 import Image from "next/image"
 import { signIn } from "next-auth/react"
@@ -19,6 +19,8 @@ const SiginInWithGoogleBtn = () => {
 
             //ここにuserを作るdb送信処理を書く。
             const { displayName, email, photoURL, uid } = credential.user
+
+            console.log()
 
             const userDocRef = doc(db, "users", uid);
             const userDoc = await getDoc(userDocRef);

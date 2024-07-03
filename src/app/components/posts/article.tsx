@@ -21,7 +21,7 @@ import Picker from "./picker";
 import { Textarea } from "@/components/ui/textarea";
 
 
-const Article = ({ title, description, icon, createdAt, updatedAt, id, username, photoUrl, postId, comment }: Post & { id: string, username: string, photoUrl: string | null, postId: number } & { comment: Comment }) => {
+const Article = ({ title, description, icon, createdAt, updatedAt, username, photoUrl, postId, comment, uid, userId }: Post & { uid: string, username: string, photoUrl: string | null, postId: number } & { comment: any }) => {
 
 
     const createdAtFormatted = format(createdAt, "yyyy/MM/dd");
@@ -49,7 +49,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
 
             setIsLoading(false);
 
-            router.push("/mypage");
+            router.push(`/${uid}`);
             router.refresh();
         } catch (e) {
             setIsLoading(false);
@@ -175,7 +175,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                                     </Button>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-full" side="bottom" align="start">
-                                    <Picker icon={currentIcon} setIcon={setCurrentIcon}/>
+                                    <Picker icon={currentIcon} setIcon={setCurrentIcon} />
                                 </PopoverContent>
                             </Popover>)}
                         {!isEditting ? (
@@ -188,11 +188,11 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                     <div className={`p-2 ${comment.description ? "bg-green-300 dark:bg-green-600" : "bg-red-300 dark:bg-red-500"} rounded-tr-lg rounded-tl-lg p-5`}>
                         <div className="flex items-center justify-between">
                             <p className="font-bold text-[30px]">{comment.description ? "解決" : "挫折中..."}</p>
-                            {!isEdittingComment && (<Button onClick={() => setIsEdittingComment(true)} disabled={isLoading} className="flex gap-3">
-                                <PenIcon width="15" height="15"/>
+                            {userId == uid && !isEdittingComment && (<Button onClick={() => setIsEdittingComment(true)} disabled={isLoading} className="flex gap-3">
+                                <PenIcon width="15" height="15" />
                                 <p>解決コメント</p>
                             </Button>)}
-                            {isEdittingComment && (<Button onClick={() => { updateComment(); setIsEdittingComment(false) }}>投稿</Button>)}
+                            {userId == uid && isEdittingComment && (<Button onClick={() => { updateComment(); setIsEdittingComment(false) }}>投稿</Button>)}
                         </div>
                         {isEdittingComment && (<div className="mt-[10px]">
                             <Textarea className="w-full h-[100px] resize-none rounded-lg outline-none p-2 text-[14px]" placeholder="解決時のエピソードを教えてください。" value={currentComment as string} onChange={(e) => { setCurrentComment(e.target.value); }} />
@@ -221,14 +221,14 @@ const Article = ({ title, description, icon, createdAt, updatedAt, id, username,
                         </div>
 
 
-                        <div className={`flex justify-end mb-[15px]`}>
+                        {userId == uid && <div className={`flex justify-end mb-[15px]`}>
                             <div className={`flex gap-2`}>
                                 {isEditting ? (
                                     <Button onClick={updatePost} disabled={isLoading}>更新</Button>
                                 ) : (<Button onClick={() => setIsEditting(true)}>編集</Button>)}
                                 <Button onClick={deletePost} disabled={isLoading}>削除</Button>
                             </div>
-                        </div>
+                        </div>}
 
                         {!isEditting ? (
                             <div className="preview">

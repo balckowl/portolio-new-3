@@ -56,7 +56,7 @@ const EditForm = ({ id, username, bio, X, photoUrl }: { id: string, username: st
             toast.success("送信に成功しました。")
             setIsLoading(false)
 
-            router.push("/mypage")
+            router.push(`/${id}`)
             router.refresh()
 
         } catch (e) {

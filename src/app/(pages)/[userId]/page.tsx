@@ -6,19 +6,20 @@ import { getUserPosts } from "@/data/post"
 import { authOptions } from "@/lib/next-auth/options"
 import { getServerSession } from "next-auth"
 
-const page = async ({params}:{params:{userId:string}}) => {
+const page = async ({ params }: { params: { userId: string } }) => {
+
     const session = await getServerSession(authOptions)
-    if(!session){
+    if (!session) {
         return
     }
-    const {userId} = params
+    const { userId } = params
     const userPosts = await getUserPosts(userId)
-    console.log(userId)
+
     return (
         <div>
             <Header />
-            <UserProfile userId={userId} uid={session.user.uid}/>
-            <PostList userPosts={userPosts} />
+            <UserProfile userId={userId} uid={session.user.uid} />
+            <PostList userPosts={userPosts}/>
             <Footer />
         </div>
     )
