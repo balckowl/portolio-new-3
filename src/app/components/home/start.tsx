@@ -14,10 +14,10 @@ const Start = async() => {
                     <h3 className="text-center text-[30px] lg:text-[39px] font-[700]">さあ、はじめよう</h3>
                     <ArrowDown/>
                     <div className="text-center">
-                        {!session && <Button>
+                        {!session && <Button asChild>
                             <Link href="/auth/login">はじめる</Link>
                         </Button>}
-                        {session && <Button>
+                        {session && <Button asChild>
                             <Link href={`/${session.user.uid}`}>My Protolio へ</Link>
                         </Button>}
                     </div>

@@ -15,10 +15,10 @@ const Hero = async () => {
                         <h2 className="sm:hidden text-[25px] lg:text-[45px] font-bold">失敗したものだってアピールポイント</h2>
                         <h2 className="text-[25px] lg:text-[45px] font-bold hidden sm:block">失敗したものだって<br />アピールポイント</h2>
                         <p>挫折ポートフォリオ</p>
-                        {!session && <Button>
+                        {!session && <Button asChild>
                             <Link href="/auth/login">はじめる</Link>
                         </Button>}
-                        {session && <Button>
+                        {session && <Button asChild>
                             <Link href={`/${session.user.uid}`}>My Protolio へ</Link>
                         </Button>}
                     </div>

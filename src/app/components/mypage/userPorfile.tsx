@@ -34,7 +34,7 @@ const UserProfile = async ({ userId, uid }: { userId: string, uid: string }) => 
                             {bio && <p className="text-[13px] sm:text-[16px]">{bio}</p>}
                         </div>
                     </div>
-                    {userId == uid && <Button variant="outline">
+                    {userId == uid && <Button asChild variant="outline">
                         <Link href="/profile/edit" className="flex items-center gap-2">
                             <Pen width={18} height={18} />
                             <p>編集する</p>
