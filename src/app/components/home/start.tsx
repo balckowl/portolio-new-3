@@ -1,19 +1,25 @@
 import { Button } from "@/components/ui/button"
+import { authOptions } from "@/lib/next-auth/options"
+import { getServerSession } from "next-auth"
 import Link from "next/link"
+import ArrowDown from "./arrowDown"
 
-const Start = () => {
-
+const Start = async() => {
+    const session = await getServerSession(authOptions)
 
     return (
         <div className="pt-[140px] pb-[140px]">
             <div className="container flex justify-center">
                 <div className="w-full lg:w-[80%]">
                     <h3 className="text-center text-[30px] lg:text-[39px] font-[700]">さあ、はじめよう</h3>
-                    <div className="flex justify-center mb-[50px]">
-                        <div className="w-8 h-8 border-4 border-transparent rotate-[45deg] before:content-[''] before:block before:w-8 before:h-8 before:border-4 before:border-t-transparent before:border-l-transparent before:border-r-[#565656] before:border-b-[#565656]"></div>
-                    </div>
+                    <ArrowDown/>
                     <div className="text-center">
-                       <Button>はじめる</Button>
+                        {!session && <Button>
+                            <Link href="/auth/login">はじめる</Link>
+                        </Button>}
+                        {session && <Button>
+                            <Link href={`/${session.user.uid}`}>My Protfolio へ</Link>
+                        </Button>}
                     </div>
                 </div>
             </div>
