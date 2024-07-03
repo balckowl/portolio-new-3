@@ -18,18 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <SessionProvider>
-            <main className="min-h-[calc(100vh-55px-55px)]">{children}</main>
-          </SessionProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+        <SessionProvider>
+          <body className={inter.className}>
+            <div className="min-h-[calc(100vh-55px-55px)]">{children}</div>
+          </body>
+        </SessionProvider>
+    </html >
   );
 }
