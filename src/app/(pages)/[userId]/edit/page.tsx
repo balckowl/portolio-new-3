@@ -4,13 +4,14 @@ import Header from "@/app/components/layouts/header";
 import { getUser } from "@/data/user";
 import { authOptions } from "@/lib/next-auth/options";
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 const EditProfilePage = async () => {
 
     const session = await getServerSession(authOptions)
 
     if(!session){
-        return
+        redirect("/auth/login")
     }
 
     const user = await getUser(session.user.uid)

@@ -1,6 +1,7 @@
 import Footer from "@/app/components/layouts/footer";
 import Header from "@/app/components/layouts/header";
 import Article from "@/app/components/posts/article"
+import NotFound from "@/app/not-found";
 import { getPost } from "@/data/post"
 import { authOptions } from "@/lib/next-auth/options";
 import { getServerSession } from "next-auth";
@@ -12,13 +13,17 @@ const page = async ({ params }: { params: { id: string } }) => {
     if(!session){
         return
     }
-    const post = await getPost(Number(params.id));
-    console.log(post)
+    
+    const postId = Number(params.id);
+    if (isNaN(postId)) {
+        return <NotFound />;  // 数字ではない場合のエラーハンドリング
+    }
 
+    const post = await getPost(postId);
 
     if (!post) {
         return (
-            <p>404 ざんねん！</p>
+            <NotFound />
         )
     }
 
