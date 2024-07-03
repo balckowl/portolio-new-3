@@ -37,7 +37,7 @@ const SiginInWithGoogleBtn = ({isLoading, setIsLoading}:{isLoading: boolean, set
                 });
 
                 //supabaseに保存するため、サーバー側に送信
-                await fetch(`http://localhost:3000/api/v1/user`, {
+                await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user`, {
                     body: JSON.stringify({ idToken }),
                     headers: {
                         'Content-Type': 'application/json'

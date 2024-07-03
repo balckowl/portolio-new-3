@@ -43,7 +43,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, username, pho
         try {
             setIsLoading(true);
 
-            await fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
+            await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/posts/${postId}`, {
                 method: "DELETE",
             })
 
@@ -68,7 +68,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, username, pho
         const loading = toast.loading("送信中...");
 
         try {
-            const res = await fetch(`http://localhost:3000/api/v1/posts/${postId}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/posts/${postId}`, {
                 method: "PUT",
                 body: JSON.stringify({
                     title: currentTitle,
@@ -100,7 +100,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, username, pho
         const loading = toast.loading("送信中...")
 
         try {
-            const res = await fetch("http://localhost:3000/api/v1/comment", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/comment`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"

@@ -39,7 +39,7 @@ const Editor = ({ uid }: { uid: string }) => {
         const loading = toast.loading("送信中...");
 
         try {
-            await fetch(`http://localhost:3000/api/v1/posts`, {
+            await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/posts`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
