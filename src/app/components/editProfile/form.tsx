@@ -38,7 +38,7 @@ const EditForm = ({ id, username, bio, X, photoUrl }: { id: string, username: st
         const loading = toast.loading("送信中...")
 
         try {
-            await fetch(`http://localhost:3000/api/v1/user`, {
+            await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
