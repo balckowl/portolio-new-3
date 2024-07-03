@@ -22,9 +22,9 @@ const Header = async () => {
     return (
         <div className="container mx-auto h-[75px]">
             <div className="flex justify-between h-full items-center">
-                <h1 className="text-[30px] font-bold">
+                <h1 className="text-[30px] font-bold tracking-wide">
                     <Link href="/">
-                        Portolio
+                        Port<span className="fuchidori text-white dark:text-black">f</span>olio
                     </Link>
                 </h1>
                 {!session ? (
