@@ -25,11 +25,8 @@ const POST = async (req: NextRequest) => {
     console.log(newUserPost, newPostComment);
     return NextResponse.json({ newUserPost, newPostComment }, { status: 201 });
   } catch (e) {
-    console.log(e);
-    return e;
-  } finally {
-    await prisma.$disconnect();
-  }
+    return NextResponse.json({ status: 500 });
+  } 
 };
 
 export { POST };

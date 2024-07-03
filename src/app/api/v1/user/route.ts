@@ -21,10 +21,7 @@ const POST = async (req: NextRequest) => {
     console.log(newUser);
     return NextResponse.json(newUser, { status: 201 });
   } catch (e) {
-    console.log(e);
-    return e;
-  } finally {
-    await prisma.$disconnect();
+    return NextResponse.json({ status: 500 });
   }
 };
 
@@ -49,10 +46,7 @@ const PUT = async (req: NextRequest) => {
     console.log(updatedUser);
     return NextResponse.json(updatedUser, { status: 201 });
   } catch (e) {
-    console.log(e);
-    return e;
-  } finally {
-    await prisma.$disconnect();
+    return NextResponse.json({ status: 500 });
   }
 };
 
