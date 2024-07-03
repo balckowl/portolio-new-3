@@ -207,7 +207,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, username, pho
                                     <div>{updatedAtFormatted}</div>
                                 </div>
                             </div>
-                            <Link href={`/mypage`}>
+                            <Link href={`/${userId}`}>
                                 <div className="flex items-center gap-3">
                                     {photoUrl && <Avatar>
                                         <AvatarImage src={photoUrl} alt="@shadcn" />

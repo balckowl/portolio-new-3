@@ -55,7 +55,7 @@ const Header = async () => {
                                             <Link href={`/${session?.user?.uid}`}>
                                                 <li>My Portolio</li>
                                             </Link>
-                                            <Link href={`/${session?.user?.uid}/edit`}>
+                                            <Link href={`/profile/edit`}>
                                                 <li>プロフィール設定</li>
                                             </Link>
                                             <Link href={`/posts/create`}>
@@ -86,7 +86,7 @@ const Header = async () => {
                                         <Link href={`/${session?.user?.uid}`}>
                                             <li>My Portolio</li>
                                         </Link>
-                                        <Link href={`/${session?.user?.uid}/edit`}>
+                                        <Link href={`/profile/edit`}>
                                             <li>プロフィール設定</li>
                                         </Link>
                                         <SignOutBtn />
