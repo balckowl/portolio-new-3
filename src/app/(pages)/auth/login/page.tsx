@@ -1,7 +1,17 @@
 import SiginInWithGoogleBtn from "@/app/components/auth/signInWithGoogleBtn";
+import { authOptions } from "@/lib/next-auth/options";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
+
+  const session = await getServerSession(authOptions)
+
+  if(session){
+    redirect(`/${session.user.uid}`)
+  }
+
   return (
     <div className="flex flex-col items-center pt-[100px]">
       <div className="text-[30px] text-center font-bold">Sign In To Portolio</div>
