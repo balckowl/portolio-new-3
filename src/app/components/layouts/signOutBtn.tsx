@@ -13,7 +13,7 @@ export default function SignOutBtn() {
     }
 
     return (
-        <li onClick={logOut}>
+        <li onClick={logOut} className="cursor-pointer">
             ログアウト
         </li>
     )

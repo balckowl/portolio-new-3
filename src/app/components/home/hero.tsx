@@ -19,7 +19,7 @@ const Hero = async () => {
                             <Link href="/auth/login">はじめる</Link>
                         </Button>}
                         {session && <Button>
-                            <Link href={`/${session.user.uid}`}>My Protfolio へ</Link>
+                            <Link href={`/${session.user.uid}`}>My Protolio へ</Link>
                         </Button>}
                     </div>
                     <div className="w-4/5 sm:w-1/2 order-1 sm:order-2">

@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 
 const formShema = z.object({
     name: z.string().min(2, { message: "名前は2文字以上にしてください" }).max(6, { message: "名前は6文字以下にしてください" }),
-    bio: z.string().max(100, { message: "100文字以下で入力してください。" }),
+    bio: z.string().max(100, { message: "100文字以下で入力してください。" }).optional(),
     x: z.string().nullable().optional()
 })
 
@@ -69,13 +69,13 @@ const EditForm = ({ id, username, bio, X, photoUrl }: { id: string, username: st
 
     return (
         <div>
-            <div className="w-[95%] mx-auto md:container flex justify-center min-h-[calc(100vh-55px-55px)] items-center">
+            <div className="w-[95%] mx-auto md:container flex justify-center py-[85px]">
                 <Toaster />
                 <div className="w-full lg:w-[60%]">
                     <div className="bg-white dark:bg-zinc-700 lg:flex px-5 py-10 gap-3 rounded-[5px]">
                         <div className="w-full lg:w-[30%] flex justify-center ">
                             <Avatar className="w-[100px] h-[100px]">
-                                <AvatarImage src={photoUrl} alt={"peng_uin"} />
+                                <AvatarImage src={photoUrl} alt={username} />
                                 <AvatarFallback>peng_uin</AvatarFallback>
                             </Avatar>
                         </div>

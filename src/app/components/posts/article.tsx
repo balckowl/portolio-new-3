@@ -159,14 +159,14 @@ const Article = ({ title, description, icon, createdAt, updatedAt, username, pho
     }
 
     return (
-        <div className="py-[70px] flex items-center justify-center bg-muted min-h-[calc(100vh-55px-55px)]">
+        <div className="py-[70px] flex items-center justify-center bg-muted min-h-[calc(100vh-75px-55px)]">
             <Toaster />
             <Tabs className="w-[92%] sm:container flex justify-center" defaultValue="markdown">
                 <div className="w-full lg:w-[60%]">
                     <div className="mb-[10px] flex items-center gap-3">
                         {!isEditting ? (
                             <div>
-                                <Image src={`/images/editor/face${icon}.png`} alt="" width="80" height="80" />
+                                <Image src={`/images/editor/face${icon}.png`} alt="" width="50" height="50" />
                             </div>) : (
                             <Popover>
                                 <PopoverTrigger asChild>
@@ -179,7 +179,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, username, pho
                                 </PopoverContent>
                             </Popover>)}
                         {!isEditting ? (
-                            <h2 className="text-[20px] sm:text-[25px] lg:text-[30px] font-bold">{title}</h2>
+                            <h2 className="text-[25px] lg:text-[30px] font-bold">{title}</h2>
                         ) : (
                             <input type="text" placeholder="ここにタイトルを入力してください。" className="w-full bg-muted focus:outline-none text-[18px] md:text-[25px] lg:text-[30px]" value={currentTitle} onChange={(e) => setCurrentTitle(e.target.value)} />
                         )}
@@ -190,12 +190,11 @@ const Article = ({ title, description, icon, createdAt, updatedAt, username, pho
                             <p className="font-bold text-[30px]">{comment.description ? "解決" : "挫折中..."}</p>
                             {userId == uid && !isEdittingComment && (<Button onClick={() => setIsEdittingComment(true)} disabled={isLoading} className="flex gap-3">
                                 <PenIcon width="15" height="15" />
-                                <p>解決コメント</p>
                             </Button>)}
                             {userId == uid && isEdittingComment && (<Button onClick={() => { updateComment(); setIsEdittingComment(false) }}>投稿</Button>)}
                         </div>
                         {isEdittingComment && (<div className="mt-[10px]">
-                            <Textarea className="w-full h-[100px] resize-none rounded-lg outline-none p-2 text-[14px]" placeholder="解決時のエピソードを教えてください。" value={currentComment as string} onChange={(e) => { setCurrentComment(e.target.value); }} />
+                            <Textarea className="w-full h-[100px] resize-none rounded-lg outline-none p-2 text-[14px]" placeholder="解決時のエピソードを教えてください。" value={currentComment as string} onChange={(e) => { setCurrentComment(e.target.value.trim()); }} />
                         </div>)}
                         {!isEdittingComment && <div>{comment.description}</div>}
                     </div>
@@ -213,7 +212,7 @@ const Article = ({ title, description, icon, createdAt, updatedAt, username, pho
                                 <div className="flex items-center gap-3">
                                     {photoUrl && <Avatar>
                                         <AvatarImage src={photoUrl} alt="@shadcn" />
-                                        <AvatarFallback>icon</AvatarFallback>
+                                        <AvatarFallback>{username}</AvatarFallback>
                                     </Avatar>}
                                     <p className="hidden sm:block">{username}</p>
                                 </div>
