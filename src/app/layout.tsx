@@ -18,11 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
-        <SessionProvider>
-          <body className={inter.className}>
-            <div className="min-h-[calc(100vh-55px-55px)]">{children}</div>
-          </body>
-        </SessionProvider>
+      <SessionProvider>
+        <body className={inter.className}>
+          <div className="min-h-[calc(100vh-55px-55px)]">{children}</div>
+        </body>
+      </SessionProvider>
     </html >
   );
 }
