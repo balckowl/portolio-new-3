@@ -21,7 +21,7 @@ import Picker from "./picker";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
-const Article = ({ title, description, icon, createdAt, updatedAt, username, photoUrl, postId, comment, uid, userId }: Post & { uid: string, username: string, photoUrl: string | null, postId: number } & { comment: any }) => {
+const Article = ({ title, description, icon, createdAt, updatedAt, username, photoUrl, postId, comment, userId, uid }: Post & { username: string, photoUrl: string | null, postId: number, uid: string } & { comment: any }) => {
 
 
     const createdAtFormatted = format(createdAt, "yyyy/MM/dd");

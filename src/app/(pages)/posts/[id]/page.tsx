@@ -23,11 +23,11 @@ const page = async ({ params }: { params: { id: string } }) => {
             <NotFound />
         )
     }
-
+    
     return (
         <div>
             <Header />
-                <Article postId={post.postId} uid={session.user.uid} userId={post.userId} title={post.title} description={post.description} icon={post.icon} createdAt={post.createdAt} updatedAt={post.updatedAt} username={post.user.username} photoUrl={post.user.photoUrl} comment={post.comment} />
+                <Article uid={session?.user.uid} postId={post.postId} userId={post.userId} title={post.title} description={post.description} icon={post.icon} createdAt={post.createdAt} updatedAt={post.updatedAt} username={post.user.username} photoUrl={post.user.photoUrl} comment={post.comment} />
             <Footer />
         </div>
     )
